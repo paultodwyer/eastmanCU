@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Retail Digital</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      iframe[id^="sb__open-sandbox"] {
+        display: none !important;
+      }
+      #external-webpage {
+        height: 100vh !important;
+      }
+
+      #tdWebchat .triggerButtonContainer_2T9qk {
+        bottom: 50px !important;
+        right: 38px !important;
+      }
+    </style>
+
+    <style>
+      /*Custom theme for Schneider*/
+      .headerSubTitle_1C-p5 {
+        color: #353538 !important;
+      }
+
+      .headerWrapper_1xhLe {
+        background-color: #1fb14f !important;
+      }
+
+      .iqQOmY,
+      .fUArHy {
+        background-color: #1fb14f !important;
+      }
+
+      .fUArHy {
+        color: white !important;
+      }
+    </style>
+  </head>
+  <body>
+    <img class="background" src="eastmancu.png" />
+
+    <!-- Start of Talkdesk Code -->
+    <script>
+      var webchat;
+      ((e, t, a, d, c) => {
+        if (e.TalkdeskChatSDK)
+          console.error("TalkdeskChatSDK already included");
+        else {
+          var n = t.createElement("div");
+          (n.id = a), t.body.appendChild(n);
+          var l = `https://talkdeskchatsdk.talkdeskapp.com/?t=${new Date().getTime()}`,
+            r = t.createElement("script"),
+            s = t.getElementsByTagName("script")[0];
+          (r.type = "text/javascript"),
+            (r.id = "tdwebchatscript"),
+            (r.src = l),
+            (r.async = !0),
+            s.parentNode.insertBefore(r, s),
+            (r.onload = () => {
+              webchat = TalkdeskChatSDK(a, d);
+              webchat.init(c);
+            });
+        }
+      })(window, document, "tdWebchat", {
+        flowId: "aa6e39c0-1d3f-4026-aab2-b75bad3f0aff",
+        accountId: "talkforce"
+      });
+    </script>
+    <!-- End of Talkdesk Code -->
+  </body>
+</html>
