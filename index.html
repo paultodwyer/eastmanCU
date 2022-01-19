@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Eastman Credit Union</title>
+    <title>Sephora</title>
     <style>
       body {
         padding: 0;
@@ -44,35 +44,54 @@
     </style>
   </head>
   <body>
-    <img class="background" src="eastmancu.png" />
+    <img class="background" src="sephora.png" />
 
     <!-- Start of Talkdesk Code -->
     <script>
       var webchat;
-      ((e, t, a, d, c) => {
-        if (e.TalkdeskChatSDK)
+      ((window, document, node, props, configs) => {
+        if (window.TalkdeskChatSDK) {
           console.error("TalkdeskChatSDK already included");
-        else {
-          var n = t.createElement("div");
-          (n.id = a), t.body.appendChild(n);
-          var l = `https://talkdeskchatsdk.talkdeskapp.com/?t=${new Date().getTime()}`,
-            r = t.createElement("script"),
-            s = t.getElementsByTagName("script")[0];
-          (r.type = "text/javascript"),
-            (r.id = "tdwebchatscript"),
-            (r.src = l),
-            (r.async = !0),
-            s.parentNode.insertBefore(r, s),
-            (r.onload = () => {
-              webchat = TalkdeskChatSDK(a, d);
-              webchat.init(c);
-            });
+          return;
         }
-      })(window, document, "tdWebchat", {
-        flowId: "a905b100-d901-4047-8524-7d7b30d32ea2",
-        accountId: "aidemos",
-        region: "td-us-1"
-      });
+        var divContainer = document.createElement("div");
+        divContainer.id = node;
+        document.body.appendChild(divContainer);
+        var src = `https://talkdeskchatsdk.talkdeskapp.com/talkdeskchatsdk.js?t=${new Date().getTime()}`;
+        var script = document.createElement("script");
+        var firstScriptTag = document.getElementsByTagName("script")[0];
+        script.type = "text/javascript";
+        script.id = "tdwebchatscript";
+        script.src = src;
+        script.async = true;
+        firstScriptTag.parentNode.insertBefore(script, firstScriptTag);
+        script.onload = () => {
+          webchat = TalkdeskChatSDK(node, props);
+          webchat.init(configs).then(() => {
+            document
+              .querySelector('[data-qa="trigger-button"')
+              .addEventListener("click", () => {
+                var opened = JSON.parse(localStorage.getItem("webchatConfig"))
+                  ?.wasChatOpened;
+                if (opened) {
+                  return;
+                }
+                setTimeout(function () {
+                  webchat.selfHostedApp.addUserMessage({
+                    data: "welcome",
+                    type: "postback"
+                  });
+                }, 100);
+              });
+          });
+        };
+      })(
+        window,
+        document,
+        "tdWebchat",
+        { flowId: "826a4f5839124bb4915bf63ef30f8624", accountId: "" },
+        { enableEmoji: true, enableUserInput: true }
+      );
     </script>
     <!-- End of Talkdesk Code -->
   </body>
