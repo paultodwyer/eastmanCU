@@ -71,7 +71,23 @@
         firstScriptTag.parentNode.insertBefore(script, firstScriptTag);
         script.onload = () => {
           webchat = TalkdeskChatSDK(node, props);
-          webchat.init(configs);
+          webchat.init(configs).then(() => {
+            document
+              .querySelector('[data-qa="trigger-button"')
+              .addEventListener("click", () => {
+                var opened = JSON.parse(localStorage.getItem("webchatConfig"))
+                  ?.wasChatOpened;
+                if (opened) {
+                  return;
+                }
+                setTimeout(function () {
+                  webchat.selfHostedApp.addUserMessage({
+                    data: "Digital",
+                    type: "postback"
+                  });
+                }, 100);
+              });
+          });
         };
       })(
         window,
